@@ -63,7 +63,15 @@ function ip_address {
 #------------------------------------------------------------------------------
 # Helper function to return normal or super user prompt character
 function prompt_char {
-    [[ ${EUID} -eq 0 ]] && echo "#" || echo "\$"
+    if [[ $OSTYPE = 'msys' ]]; then
+        if id -Gz | grep -qz "$(getent -w group 'S-1-16-12288' | cut -d: -f2)"; then
+            echo "#"
+        else
+            echo "\$"
+        fi
+    else
+        [[ ${EUID} -eq 0 ]] && echo "#" || echo "\$"
+    fi
 }
 
 # -----------------------------------------------------------------------------
