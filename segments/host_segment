@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+# host_segment
+
+# -----------------------------------------------------------------------------
+# append to prompt: hostname
+# arg: $1 foreground color
+# arg; $2 background color
+function host_segment {
+    local bg_color="$1"
+    local fg_color="$2"
+    local content="\h"
+    PS1+="$(segment_end "$fg_color" "$bg_color")"
+    PS1+="$(segment_content "$fg_color" "$bg_color" " $content ")"
+    __last_color="$bg_color"
+}
