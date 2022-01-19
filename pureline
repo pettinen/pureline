@@ -315,10 +315,8 @@ function main() {
     local segment_dir
     segment_dir=$(dirname "${BASH_SOURCE[0]}")'/segments'
     for segment_index in "${!PL_SEGMENTS[@]}"; do
-        # check if segment function is not defined
         segment_function=${PL_SEGMENTS[$segment_index]%% *}
-        if [ -z "$(type -t "$segment_function")" ]; then
-            # if not defined, source external function
+        if [[ -r "$segment_dir"'/'"$segment_function" ]]; then
             # shellcheck disable=SC1090
             source "$segment_dir"'/'"$segment_function"
         fi
