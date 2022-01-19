@@ -5,7 +5,7 @@
 
 # Set default symbols if not already defined in config
 # Defaults should be standard symbols.
-[[ -z ${PL_SYMBOLS[duration]}  ]] && PL_SYMBOLS[duration]='⧗'
+[[ -z ${PL_SYMBOLS[duration]} ]] && PL_SYMBOLS[duration]=$'\uF253'
 
 # -----------------------------------------------------------------------------
 # return the current ime

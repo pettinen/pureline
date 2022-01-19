@@ -270,8 +270,8 @@ function set_default_colors() {
 # symbols from code page 437: character set of the original IBM PC
 function set_default_symbols {
     PL_SYMBOLS=(
-        [hard_separator]="▶"
-        [soft_separator]="│"
+        [hard_separator]=$'\uE0B0'
+        [soft_separator]=$'\uE0B1'
 
         [read_only]="Θ"
         [return_code]=$'\U1F643'
