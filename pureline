@@ -99,19 +99,12 @@ function time_segment {
 # arg: $2 background color
 # option variables;
 #   PL_USER_SHOW_HOST: true/false to show host name/ip
-#   PL_USER_USE_IP: true/false to show IP instead of hostname
 function user_segment {
     local bg_color="$1"
     local fg_color="$2"
     local content="\u"
     # Show host if true or when user is remote/root
-    if [ "$PL_USER_SHOW_HOST" = true ]; then
-        if [ "$PL_USER_USE_IP" = true ]; then
-            content+="@$(ip_address)"
-        else
-            content+="@\h"
-        fi
-    fi
+    [ "$PL_USER_SHOW_HOST" = true ] && content+="@\h"
     PS1+="$(segment_end "$fg_color" "$bg_color")"
     PS1+="$(segment_content "$fg_color" "$bg_color" " $content ")"
     __last_color="$bg_color"
@@ -148,7 +141,7 @@ function background_jobs_segment {
     number_jobs=$(jobs | grep -cv "Done" | tr -d '[:space:]')
     if [ ! "$number_jobs" -eq 0 ]; then
         PS1+="$(segment_end "$fg_color" "$bg_color")"
-        PS1+="$(segment_content "$fg_color" "$bg_color" " ${PL_SYMBOLS[background_jobs]} $number_jobs ")"
+        PS1+="$(segment_content "$fg_color" "$bg_color" " ${PL_SYMBOLS[background_jobs]}$number_jobs ")"
         __last_color="$bg_color"
     fi
 }
@@ -289,9 +282,8 @@ function set_default_symbols {
         [soft_separator]="│"
 
         [read_only]="Θ"
-        [return_code]="x"
-        [background_jobs]="↨"
-        [background_jobs]="↔"
+        [return_code]=$'\U1F643'
+        [background_jobs]=$'\uFA1A'
     )
 }
 
