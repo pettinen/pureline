@@ -4,14 +4,14 @@
 
 # Set default symbols if not already defined in config
 # Defaults should be standard symbols.
-[[ -z ${PL_SYMBOLS[git_branch]} ]] && PL_SYMBOLS[git_branch]="╬" 
-[[ -z ${PL_SYMBOLS[git_untracked]} ]] && PL_SYMBOLS[git_untracked]="?"
-[[ -z ${PL_SYMBOLS[git_stash]} ]] && PL_SYMBOLS[git_stash]="§"
-[[ -z ${PL_SYMBOLS[git_ahead]} ]] && PL_SYMBOLS[git_ahead]="↑"
-[[ -z ${PL_SYMBOLS[git_behind]} ]] && PL_SYMBOLS[git_behind]="↓"
-[[ -z ${PL_SYMBOLS[git_modified]} ]] && PL_SYMBOLS[git_modified]="+"
-[[ -z ${PL_SYMBOLS[git_staged]} ]] && PL_SYMBOLS[git_staged]="•"
-[[ -z ${PL_SYMBOLS[git_conflicts]} ]] && PL_SYMBOLS[git_conflicts]="*"
+[[ -z ${PL_SYMBOLS[git_branch]} ]] && PL_SYMBOLS[git_branch]=$'\uE0A0'
+[[ -z ${PL_SYMBOLS[git_untracked]} ]] && PL_SYMBOLS[git_untracked]=$'\uF914'
+[[ -z ${PL_SYMBOLS[git_stash]} ]] && PL_SYMBOLS[git_stash]=$'\uF74A '
+[[ -z ${PL_SYMBOLS[git_ahead]} ]] && PL_SYMBOLS[git_ahead]=$'\uF55C '
+[[ -z ${PL_SYMBOLS[git_behind]} ]] && PL_SYMBOLS[git_behind]=$'\uF544 '
+[[ -z ${PL_SYMBOLS[git_modified]} ]] && PL_SYMBOLS[git_modified]=$'\uF8EA '
+[[ -z ${PL_SYMBOLS[git_staged]} ]] && PL_SYMBOLS[git_staged]=$'\uF62B '
+[[ -z ${PL_SYMBOLS[git_conflicts]} ]] && PL_SYMBOLS[git_conflicts]=$'\uF490 '
 
 # -----------------------------------------------------------------------------
 # append to prompt: git branch with indictors for;
@@ -72,7 +72,7 @@ function git_segment {
         local number_conflicts
         number_conflicts="$(git diff --name-only --diff-filter=U 2> /dev/null | wc -l | tr -d '[:space:]')"
         if [ ! "$number_conflicts" -eq "0" ]; then
-            content+=" ${PL_SYMBOLS[soft_separator]} ${PL_SYMBOLS[git_conflicts]}$number_conflicts"
+            content+=" ${PL_SYMBOLS[soft_separator]} \[\e[31m\]${PL_SYMBOLS[git_conflicts]}\[\e[30m\]$number_conflicts"
         fi
     fi
 
